@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+  labels:
+    app: python
+spec:
+  replicas: 3  # replica set
+  selector:
+    matchLabels:
+      app: python
+  template:  # pod
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+      - name: python-container
+        image: gcr.io/bamboo-autumn-375708/app-python
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: config-map
+        

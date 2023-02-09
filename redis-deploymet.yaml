@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: redis
+spec:
+  replicas: 3  # replica set
+  selector:
+    matchLabels:
+      app: redis
+  template:  # pod
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis-container
+        image: gcr.io/bamboo-autumn-375708/redis
+        ports:
+        - containerPort: 6379
